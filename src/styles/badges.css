@@ -1,0 +1,45 @@
+.card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #e6eef8;
+  box-shadow: 0 4px 12px rgba(11, 22, 39, 0.02);
+}
+
+.card-title {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #2a75bb;
+  font-weight: 700;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.type-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffcb05;
+  color: #222;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  text-transform: capitalize;
+}
+
+.ability-badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #e1eefc;
+  color: #2a75bb;
+  font-weight: 700;
+  font-size: 13px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  text-transform: capitalize;
+}
+

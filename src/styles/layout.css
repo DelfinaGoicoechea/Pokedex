@@ -1,0 +1,10 @@
+.App {
+  display: flex; /* pone los hijos (aside y main) en fila */
+  gap: 12px; /* espacio entre columnas */
+  height: 100vh; /* que ocupe toda la altura de la ventana */
+  padding: 12px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  background-color: #121212;
+}
+

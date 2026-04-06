@@ -1,0 +1,19 @@
+/* panel derecho: ocupa el resto del espacio */
+.right-panel {
+  flex: 1; /* ocupa todo el espacio sobrante */
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  overflow: auto;
+}
+
+/* placeholder del area de detalle */
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #666;
+}
+
