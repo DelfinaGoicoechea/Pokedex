@@ -10,27 +10,27 @@ The application demonstrates a component-based architecture and organized data f
 
 Users can:
 
-- Browse Pokémon data
-- View Pokémon information and images
+- Browse Pokemon data
+- View Pokemon information and images
 - Load data dynamically from an external API
 
 ## API
 
 Data is obtained from the public Pokemon API:
 
-PokeAPI — (https://pokeapi.co/)
+PokeAPI — https://pokeapi.co/
 
 ## Getting Started
 
-- Clone the repository
+Clone the repository
 ```sh
 git clone git@github.com:DelfinaGoicoechea/Pokedex.git
 ```
-- Install dependencies
+Install dependencies
 ```sh
 npm install
 ```
-- Run the development server
+Run the development server
 ```sh
 npm run dev
 ```
