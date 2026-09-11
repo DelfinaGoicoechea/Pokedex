@@ -1,4 +1,3 @@
-import React from "react";
 import type { PokemonListItem } from "../types/pokemon";
 import SearchInput from "./SearchInput";
 
@@ -10,6 +9,11 @@ type Props = {
   pokemons: PokemonListItem[];
   selectedUrl: string | null;
   onSelectUrl: (url: string) => void;
+  page: number;
+  hasPrev: boolean;
+  hasNext: boolean;
+  onPrevPage: () => void;
+  onNextPage: () => void;
 };
 
 export default function PokemonListPanel({
@@ -20,11 +24,16 @@ export default function PokemonListPanel({
   pokemons,
   selectedUrl,
   onSelectUrl,
+  page,
+  hasPrev,
+  hasNext,
+  onPrevPage,
+  onNextPage,
 }: Props) {
   return (
     <aside className="left-panel">
       <header className="panel-header">
-        <h2>Pokedex</h2>
+        <h2>Pokédex</h2>
       </header>
 
       <SearchInput query={query} onChange={onQueryChange} />
@@ -50,6 +59,26 @@ export default function PokemonListPanel({
             </li>
           ))}
       </ul>
+
+      <div className="pagination">
+        <button
+          type="button"
+          className="pagination-button"
+          onClick={onPrevPage}
+          disabled={!hasPrev}
+        >
+          Previous
+        </button>
+        <span className="pagination-page">Page {page + 1}</span>
+        <button
+          type="button"
+          className="pagination-button"
+          onClick={onNextPage}
+          disabled={!hasNext}
+        >
+          Next
+        </button>
+      </div>
     </aside>
   );
 }

@@ -8,3 +8,18 @@
   background-color: #121212;
 }
 
+.App *,
+.App *::before,
+.App *::after {
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .App {
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+

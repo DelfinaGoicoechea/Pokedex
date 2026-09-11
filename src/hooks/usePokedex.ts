@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import type { PokemonListItem } from "../types/pokemon";
+import type { PokemonDetail, PokemonListItem } from "../types/pokemon";
 import { fetchPokemonDetail, fetchPokemonList } from "../services/pokeapi";
 
 type PokemonSelection = {
   url: string | null;
-  data: any | null;
+  data: PokemonDetail | null;
   loading: boolean;
   error: string | null;
   image: {
@@ -26,13 +26,17 @@ const initialSelection: PokemonSelection = {
   },
 };
 
+const PAGE_SIZE = 30;
+
 export function usePokedex() {
   const [list, setList] = useState<{
     items: PokemonListItem[];
     loading: boolean;
     error: string | null;
-  }>({ items: [], loading: false, error: null });
+    count: number;
+  }>({ items: [], loading: false, error: null, count: 0 });
 
+  const [page, setPage] = useState(0);
   const [query, setQuery] = useState<string>("");
   const [selection, setSelection] = useState<PokemonSelection>(initialSelection);
 
@@ -41,22 +45,28 @@ export function usePokedex() {
     (async () => {
       setList((s) => ({ ...s, loading: true, error: null }));
       try {
-        const data = await fetchPokemonList(30);
+        const data = await fetchPokemonList(PAGE_SIZE, page * PAGE_SIZE);
         if (!alive) return;
-        setList({ items: data.results || [], loading: false, error: null });
-      } catch (err: any) {
+        setList({
+          items: data.results || [],
+          loading: false,
+          error: null,
+          count: data.count ?? 0,
+        });
+      } catch (err) {
         if (!alive) return;
+        const message = err instanceof Error ? err.message : "Unknown error";
         setList((s) => ({
           ...s,
           loading: false,
-          error: err?.message ?? "Unknown error",
+          error: message,
         }));
       }
     })();
     return () => {
       alive = false;
     };
-  }, []);
+  }, [page]);
 
   useEffect(() => {
     if (!selection.url) {
@@ -75,7 +85,10 @@ export function usePokedex() {
       }));
       try {
         const json = await fetchPokemonDetail(url, controller.signal);
-        const img = json?.sprites?.front_default ?? null;
+        const img = 
+          json?.sprites?.other?.["official-artwork"]?.front_default ??
+          json?.sprites?.front_default ?? 
+          null;
         setSelection((s) => {
           if (s.url !== url) return s;
           return {
@@ -86,14 +99,15 @@ export function usePokedex() {
             image: { url: img, loaded: false, error: false },
           };
         });
-      } catch (err: any) {
+      } catch (err) {
         if (controller.signal.aborted) return;
+        const message = err instanceof Error ? err.message : "Unknown error";
         setSelection((s) => {
           if (s.url !== url) return s;
           return {
             ...s,
             loading: false,
-            error: err?.message ?? "Unknown error",
+            error: message,
           };
         });
       }
@@ -110,9 +124,23 @@ export function usePokedex() {
     return list.items.filter((p) => p.name.toLowerCase().includes(q));
   }, [list.items, query]);
 
+  const hasPrev = page > 0;
+  const hasNext = (page + 1) * PAGE_SIZE < list.count;
+
   return {
     query,
     setQuery,
+    page,
+    hasPrev,
+    hasNext,
+    prevPage: () => {
+      if (!hasPrev) return;
+      setPage((p) => p - 1);
+    },
+    nextPage: () => {
+      if (!hasNext) return;
+      setPage((p) => p + 1);
+    },
     list: { ...list, filteredItems },
     selection,
     selectUrl: (url: string) => {
