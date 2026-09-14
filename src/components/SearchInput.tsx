@@ -10,7 +10,7 @@ export default function SearchInput({ query, onChange }: Props) {
       id="pokemon-search"
       type="search"
       className="search-input"
-      placeholder="Search Pokemon..."
+      placeholder="Search Pokémon..."
       value={query}
       onChange={(e) => onChange(e.target.value)}
     />
