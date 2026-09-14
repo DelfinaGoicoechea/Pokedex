@@ -1,36 +1,82 @@
-# Pokedex
+# Pokédex
 
-A Pokedex web application built with React that allows users to explore Pokemon information retrieved from a public API.
+A Pokédex web application built with React and TypeScript that allows users to browse, search, and explore Pokémon using data from PokéAPI.
 
-## Description
+The application displays Pokémon in pages of 30 and retrieves detailed information for each selected Pokémon through separate API requests.
 
-The Pokedex App displays a collection of Pokemon with relevant data such as names, images, and additional details obtained dynamically from an external API.
+## Preview
 
-The application demonstrates a component-based architecture and organized data fetching through a dedicated service layer, providing a clean and maintainable frontend structure.
+![Pokédex application](./docs/images/pokedex-preview.png)
 
-Users can:
+## Features
 
-- Browse Pokemon data
-- View Pokemon information and images
-- Load data dynamically from an external API
+- Browse Pokémon in pages of 30
+- Navigate between pages using Previous and Next controls
+- Search Pokémon within the current page
+- Select a Pokémon to view detailed information
+- View official artwork, ID, height, weight, types, and abilities
+- Loading and error states for API requests and images
+- Responsive layout for desktop and smaller screens
 
-## API
+## Tech Stack
 
-Data is obtained from the public Pokemon API:
+- React
+- TypeScript
+- JavaScript
+- CSS
+- Fetch API
+- PokéAPI
 
-PokeAPI — https://pokeapi.co/
+## How It Works
+
+The application uses two types of requests to PokéAPI:
+
+1. A list request retrieves Pokémon in pages of 30.
+2. When a Pokémon is selected, a second request retrieves its detailed information.
+
+The fetched data and UI state are managed through a custom `usePokedex` hook, while API requests are organized in a dedicated service.
+
+## Project Structure
+
+```text
+src/
+├── components/     UI components
+├── hooks/          Pokédex state and behavior
+├── services/       PokéAPI requests
+├── styles/         Component and layout styles
+├── types/          TypeScript types
+└── App.tsx
+```
 
 ## Getting Started
 
-Clone the repository
-```sh
-git clone git@github.com:DelfinaGoicoechea/Pokedex.git
-```
-Install dependencies
+### Requirements
+
+Tested on:
+
+- macOS / Linux
+- Node.js
+- npm
+
+### Install dependencies
+
+From the repository root:
+
 ```sh
 npm install
 ```
-Run the development server
+
+### Run the application
+
 ```sh
 npm start
 ```
+
+The application will be available at:
+
+`http://localhost:3000`
+
+## API
+
+Pokémon data is provided by [PokéAPI](https://pokeapi.co/).
+
